@@ -3,18 +3,18 @@ function MailgunStatsCtrl($scope, $http) {
 
     var config = {
         method : 'GET',
-        url : 'https://api.mailgun.net/v2/mail.empleolisto.com.mx/stats',
+        url : 'mailgun/v2/mail.empleolisto.com.mx/stats',
         headers : {
             'Authorization' : 'Basic ' + basicAuthKey
         },
-        data : {
-            event : 'bounced',
-            'start-date' : '2012-01-01',
-            limit : 1
+        params : {
+            //'event' : 'bounced',
+            'start-date' : '2012-02-01',
+            'limit' : 3*5
         }
     };
 
     $http(config).success(function(data) {
-        $scope.stats = data;
+        $scope.mailgunStats = data.items;
     });
 }
