@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app>
+    
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+        <script src="js/controllers.js"></script>
+        <link rel="stylesheet"
+            href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css">
+    </head>
+    
+    <body ng-controller="MailgunStatsCtrl">
+        <div>
+            <label>Start Date:</label>
+            <input type="text" ng-model="startDate" placeholder="Enter the start date (YYYY-MM-DD)">
+            <hr>
+            <h1>Fetching {{startDate}}!</h1>
+            <ul>
+                <li ng-repeat="stat in stats">
+                    <p>{{stat.created_at}}</p>
+                    <p>{{stat.event}}</p>
+                    <p>{{stat.total_count}}</p>
+                </li>
+            </ul>
+        </div>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
