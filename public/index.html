@@ -1,19 +1,36 @@
 <!doctype html>
-<html ng-app>
-    
+<html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+        <script src="lib/angularui/angular-ui.min.js"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.7/jquery.flot.min.js"></script>
+        <script src="js/chart.js"></script>
         <script src="js/controllers.js"></script>
+
+        <link rel="stylesheet" 
+            href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css">
         <link rel="stylesheet"
             href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css">
+        <link rel="stylesheet" href="lib/angularui/angular-ui.min.css">
+        <style>
+            .chart{
+                width:400px;
+                height:200px;
+            }​
+        </style>
     </head>
     
-    <body ng-controller="MailgunStatsCtrl">
-        <div>
+    <body ng-app='MailgunApp'>
+        <div ng-controller='MailgunStatsCtrl'>
             <label>Start Date:</label>
-            <input type="text" ng-model="startDate" placeholder="Enter the start date (YYYY-MM-DD)">
+            <input type="text" ng-model="startDate" placeholder="Enter the start date (YYYY-MM-DD)" ui-date>
             <hr>
             <h1>Fetching {{startDate}}!</h1>
+            <div class="chart" ng-model='testPoints' ui-chart>
+            </div>
             <ul>
                 <li ng-repeat="stat in mailgunStats">
                     <p>{{stat.created_at}}</p>

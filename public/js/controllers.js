@@ -1,5 +1,9 @@
-function MailgunStatsCtrl($scope, $http) {
+var mailgunApp = angular.module('MailgunApp', ['ui', 'flotChart']);
+
+mailgunApp.controller('MailgunStatsCtrl', function($scope, $http) {
     var basicAuthKey = "YXBpOmtleS03NGUteHMzZm9pNHFndm8wNHhxdTV0NDFscjNueDM4OQ==";
+
+    $scope.testPoints = [[[0, 1], [1, 5], [2, 2]]];
 
     var config = {
         method : 'GET',
@@ -17,4 +21,4 @@ function MailgunStatsCtrl($scope, $http) {
     $http(config).success(function(data) {
         $scope.mailgunStats = data.items;
     });
-}
+});
