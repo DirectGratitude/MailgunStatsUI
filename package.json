@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "3.x",
     "http-proxy": "0.8.4",
-    "jade": "*"
+    "consolidate": "*",
+    "dustjs-linkedin": "*"
   }
 }

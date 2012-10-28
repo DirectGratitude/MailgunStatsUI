@@ -8,22 +8,27 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , httpProxy = require('http-proxy');
+  , httpProxy = require('http-proxy')
+  , cons = require('consolidate');
 
 var options = {
     target: {
-        https: true
+        port: 443,
+        host: "api.mailgun.net",
+        https: true,
     }
 };
 
-var mailgunProxy = httpProxy.createServer(443, 'api.mailgun.net', options).listen(8000);
+var mailgunProxy = httpProxy.createServer(options).listen(8000);
 
 var app = express();
+
+app.engine('dust', cons.dust);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'dust');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
