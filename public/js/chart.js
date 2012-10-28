@@ -1,10 +1,33 @@
-angular.module('flotChart', []).directive('uiChart', function() {
+angular.module('angularChart', []).directive('uiChart', function() {
     return {
         restrict: 'EA',
         link: function(scope, elem, attrs) {
 
             var chart = null,
-                opts  = { };
+                opts  = { 
+                   chart: {
+                       renderTo: attrs.id,
+//                       type: 'bar'
+                   },
+                   title: {
+                       text: 'Mailgun Stats'
+                   },
+                   yAxis: {
+                       title: {
+                           text: 'Count'
+                       }
+                   },                       
+                   xAxis: {
+                       title: {
+                           text: 'Date'
+                       },
+                       type: 'datetime',
+                       dateTimeLabelFormats: { // don't display the dummy year
+                           month: '%b %e',
+                           year: '%b'
+                       }
+                   }
+                };
             
             var data = scope[attrs.ngModel];
 
@@ -12,14 +35,8 @@ angular.module('flotChart', []).directive('uiChart', function() {
 //            element.css('position', 'relative');
             
             scope.$watch(attrs.ngModel, function(v){
-                if(!chart){
-                    chart = $.plot(elem, v , opts);
-                    elem.show();
-                }else{
-                    chart.setData(v);
-                    chart.setupGrid();
-                    chart.draw();
-                }
+                opts.series = v;
+                chart = new Highcharts.Chart(opts);
             });
         }
     };

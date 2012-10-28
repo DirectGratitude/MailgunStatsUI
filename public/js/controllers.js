@@ -1,9 +1,16 @@
-var mailgunApp = angular.module('MailgunApp', ['ui', 'flotChart']);
+var mailgunApp = angular.module('MailgunApp', ['ui', 'angularChart']);
 
 mailgunApp.controller('MailgunStatsCtrl', function($scope, $http) {
     var basicAuthKey = "YXBpOmtleS03NGUteHMzZm9pNHFndm8wNHhxdTV0NDFscjNueDM4OQ==";
 
-    $scope.testPoints = [[[0, 1], [1, 5], [2, 2]]];
+    var sd = new Date();
+    sd.setDate(sd.getDate()-60);
+    $scope.mailgunConfig = {
+        startDate : sd,
+        numDays : 60
+    };
+
+    $scope.mailgunStats = [];
 
     var config = {
         method : 'GET',
@@ -12,13 +19,35 @@ mailgunApp.controller('MailgunStatsCtrl', function($scope, $http) {
             'Authorization' : 'Basic ' + basicAuthKey
         },
         params : {
-            //'event' : 'bounced',
-            'start-date' : '2012-02-01',
-            'limit' : 3*5
+            'start-date' : $scope.mailgunConfig.startDate,
+            'limit' : 5 * $scope.mailgunConfig.numDays
         }
     };
 
-    $http(config).success(function(data) {
-        $scope.mailgunStats = data.items;
-    });
+    $scope.refreshChart = function() {
+
+        var sd = $scope.mailgunConfig.startDate;
+        config.params['start-date'] = "" + sd.toISOString().split('T')[0];
+        config.params['limit'] = 5 * $scope.mailgunConfig.numDays;
+
+        $http(config).success(function(data) {
+        
+            var series = {
+            };
+
+            function seriesBuilder(e, index, array) {
+                if (!(e.event in series)) {
+                    series[e.event] = {name: e.event, data: []};
+                }
+                series[e.event].data.push([new Date(e.created_at).getTime(), e.total_count]);
+            }
+
+            data.items.forEach(seriesBuilder);
+
+            seriesArray = $.map(series, function(value, key) { return value; });
+            $scope.mailgunStats = seriesArray;
+        });
+    };
+
+    $scope.refreshChart();
 });
