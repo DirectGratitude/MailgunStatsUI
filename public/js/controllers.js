@@ -1,7 +1,6 @@
 var mailgunApp = angular.module('MailgunApp', ['ui', 'angularChart']);
 
 mailgunApp.controller('MailgunStatsCtrl', function($scope, $http) {
-    var basicAuthKey = "YXBpOmtleS03NGUteHMzZm9pNHFndm8wNHhxdTV0NDFscjNueDM4OQ==";
 
     var sd = new Date();
     sd.setDate(sd.getDate()-60);
@@ -15,9 +14,6 @@ mailgunApp.controller('MailgunStatsCtrl', function($scope, $http) {
     var config = {
         method : 'GET',
         url : 'mailgun/v2/mail.empleolisto.com.mx/stats',
-        headers : {
-            'Authorization' : 'Basic ' + basicAuthKey
-        },
         params : {
             'start-date' : $scope.mailgunConfig.startDate,
             'limit' : 5 * $scope.mailgunConfig.numDays

@@ -16,11 +16,14 @@ var options = {
     target: {
         port: 443,
         host: "api.mailgun.net",
-        https: true,
+        https: true
     }
 };
 
-var mailgunProxy = httpProxy.createServer(options).listen(8000);
+var basicAuthKey = "YXBpOmtleS03NGUteHMzZm9pNHFndm8wNHhxdTV0NDFscjNueDM4OQ==";
+
+var mailgunProxy = 
+    httpProxy.createServer(require('./basicAuth')(basicAuthKey), options);
 
 var app = express();
 
