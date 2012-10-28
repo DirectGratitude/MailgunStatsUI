@@ -9,6 +9,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , httpProxy = require('http-proxy')
+  , dust = require('dustjs-linkedin')
   , cons = require('consolidate');
 
 var options = {

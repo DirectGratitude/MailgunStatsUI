@@ -1,4 +1,5 @@
-<!doctype html>
+{>"views/layout.dust"/}
+{<content}
 <html>
     <head>
         <title>{+title}My Site{/title}</title>
@@ -49,8 +50,10 @@
                 <div id="statChart" class="span9" ng-model='mailgunStats' ui-chart>
                 </div>
             </div>
+            Username: "{+username/}"
         </div>
         <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
     </body>
 
 </html>
+{/content}

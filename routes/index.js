@@ -4,5 +4,8 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'MailGun UI' });
+    res.render('index', { 
+        title: 'MailGun UI',
+        username: 'Myname'
+    });
 };
